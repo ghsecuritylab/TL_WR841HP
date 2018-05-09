@@ -1,0 +1,158 @@
+
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<script language="Javascript"><!--
+var LP = location.pathname;
+var curPage = ipsec_page_param[0];
+var prePage = (ipsec_page_param[0] == 1)?1:ipsec_page_param[0]-1;
+var NextPage = ipsec_page_param[0]+1;
+
+function doAll(val)
+{
+	if(val=="DelAll"){if(!confirm(js_delete_all="Delete all item?")) return;} 
+	location.href="IpsecRpm.htm?doAll="+val+"&Page="+curPage;
+}
+function doAdd(nPage){location.href="IpsecRpm.htm?Add=Add&Page="+nPage;}
+function doPage(nPage){location.href="IpsecRpm.htm?Page="+nPage;}
+function doHelp(){location.href="../help/IpsecHelpRpm.htm";}
+
+function ResetStatus(strInfo){window.status='';return true;}
+function getValLen(val)
+{
+	var len = 0;
+	var i = 0;
+	for (i = 0; i < val.length; i ++)
+	{
+		var c = val.charAt(i);
+		len += ((c >= ' ') && (c <= '~')) ? 1 : 2;
+	}
+	return len;
+}
+function enableId(id){
+	var enable;
+	if(document.forms[0].elements['enable'+id].checked == true)
+		enable = 1;
+	else
+		enable = 0;
+	location.href = LP + "?enable=" + enable + "&enableId=" + id +"&Page=" + ipsec_page_param[0];
+	//alert(location.href);
+}
+function ctrlsInit()
+{
+    var radio = ipsec_global_data_param[0]?0:1;
+    document.forms[0].ipsec_enable[radio].checked = true;
+
+    document.forms[0].Page.value = curPage;
+    //document.forms[0].previous.disabled = (ipsec_page_param[0] < 2)?true:false;
+    //document.forms[0].next.disabled = (ipsec_page_param[1] >0)?false:true;
+    document.forms[0].DelAll.disabled = (ipsec_page_param[2] >0)?false:true;
+    //document.forms[0].selPage.value = curPage;
+    document.forms[0].Add.disabled = (ipsec_page_param[4]<ipsec_page_param[5])?false:true;
+}
+var mode_param = new Array(
+"<span id=\"t_ike_mode\">IKE mode</span>",
+"<span id=\"t_manual_mode\">Manual mode</span>"
+);
+
+function doSubmit()
+{
+	return true;
+}
+//--></script>
+</head>
+
+<BODY onload="ctrlsInit(); LoadHelp('IpsecListHelpRpm.htm');setTagStr(document,'ntw_ipsec_cfg'); resize(this);" onResize="resize(this);">
+<center><form action="IpsecRpm.htm" enctype="multipart/form-data" method="get" onSubmit="return doSubmit();">
+<table id="autoWidth" align="center">
+<TR><TD class=h1 colspan=2 id ="t_ipsec_setting">List of IPsec Policy</TD></TR>
+
+<TR><TD class=blue colspan=2></TD></TR>
+<TR><TD></TD></TR>
+
+<!---->
+<TR>
+	<TD>
+		<TABLE border="0" align="center" >
+			<TR align="center">
+				<TD class="Item" width="150" id="t_ipsec">IPsec:</TD>
+				<TD>
+					<input name="ipsec_enable" type="radio" value="1" Checked ><span id="t_enable">Enable</span>&nbsp;&nbsp;
+					<input name="ipsec_enable" type="radio" value="0" ><span id="t_disable">Disable</span>&nbsp;&nbsp;
+					<input name="Save" type="submit" class="buttonBig" value="Save">
+				</TD>
+			</TR>
+		</TABLE>
+	</TD>	
+</TR>
+<TR><TD></TD></TR>
+<TR>
+	<TD>		
+		<table id="autoWidth" align="center">
+		<tr>
+		
+			<td align="center"><B id="t_index">Index</td>
+			<td align="center"><B id="t_name">Name</td>
+			<td align="center" nowrap><B id="t_local_subnet">Local Subnet</td>
+			<td align="center" nowrap><B id="t_peer_subnet">Peer Subnet</td>
+			<td align="center" nowrap><B id="t_negotia_mode">Negotiation Mode</td>
+			<td align="center" nowrap><B id="t_status">Status</td>
+			<td align="center" nowrap><B id="t_config">Configuration</td>
+		</tr>
+		<script language="JavaScript">
+			if (ipsec_page_param[2] > 0)
+			{
+				var row = 0;
+				var modeString;
+				var index = 0;
+				var idStart = (ipsec_page_param[0] - 1) * 8;
+				for(var i = 0; i < ipsec_page_param[2]; i++)
+				{
+					idStart++;
+					row = i * ipsec_page_param[3];
+					
+					document.write('<tr id="tr'+idStart+'"><td align="center">' + idStart + '<\/td>');
+					var showVal = ipsec_data_param[row];
+					if (getValLen(showVal) > 24)
+					{
+						showVal = showVal.substr(0,20) + "...";
+					}
+					document.write('<td align="center">' + showVal + '<\/td>');
+					document.write('<td align="center">' + ipsec_data_param[row+1] + '<\/td>');
+					document.write('<td align="center">' + ipsec_data_param[row+2] + '<\/td>');
+					index = ipsec_data_param[row+3]?0:1; // IKE or Manual?
+					document.write('<td align="center">' + mode_param[index] + '<\/td>');
+					
+					var enableStatus = ipsec_data_param[row+4]?"checked":"";
+					document.write('<td align="center"><input type="checkbox" '
+								 + enableStatus +' name="enable' + i
+								 + '" value="1" onClick="enableId('
+								 + i
+								 + ');">enable</td>');
+			
+					document.write('<td align="center"><a href=\"IpsecRpm.htm?Modify=' +
+									i+'&Page='+ipsec_page_param[0]+
+									'\" OnMouseOver=\"return ResetStatus(\'modify\');\">modify<\/a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"IpsecRpm.htm?Del='+
+									i+'&Page='+ipsec_page_param[0]+
+									'\" OnMouseOver=\"return ResetStatus(\'delete\');\">delete<\/a><\/td><\/tr>');
+				}
+			}
+			else
+			{
+				document.write('<tr><td align="center" colspan=7 id="t_list_empty">Now the list is empty.<\/td>');
+			}
+		</script>
+		</table>
+	</TD>	
+</TR>
+
+<TR><TD class=blue colspan=2></TD></TR>
+<!---->
+<TR>	
+	<TD class =" mbtn">
+		<input name="Page" type="hidden" value="1">
+		<input  type="button" value="Add" class="buttonBig" name="Add" onClick="doAdd(curPage);">
+		<input  type="button" value="Delete All" class="buttonBig" name="DelAll" onClick="doAll('DelAll');">
+	</TD>
+</TR>
+</table>
+</form></center>
+</body><head><meta http-equiv="pragma" content="no-cache"></head></html>

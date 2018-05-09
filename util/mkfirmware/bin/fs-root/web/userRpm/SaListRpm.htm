@@ -1,0 +1,134 @@
+
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<script language="Javascript"><!--
+var LP = location.pathname;
+function doRefresh(){location.href="../userRpm/SaListRpm.htm"; return true;}
+function doAdd(nPage){location.href="IPsecRpm.htm?Add=Add&Page="+nPage;}
+function doPage(nPage){location.href="IPsecRpm.htm?Page="+nPage;}
+function doHelp(){location.href="../help/SaListHelpRpm.htm";}
+
+function ResetStatus(strInfo){window.status='';return true;}
+function getValLen(val)
+{
+	var len = 0;
+	var i = 0;
+	for (i = 0; i < val.length; i ++)
+	{
+		var c = val.charAt(i);
+		len += ((c >= ' ') && (c <= '~')) ? 1 : 2;
+	}
+	return len;
+}
+
+var proto_list_param = new Array(
+	"AH",
+	"ESP"
+);
+var auth_list_param = new Array(
+"<span id=\"t_auto\">AUTO</span>",
+	"MD5",
+	"SHA1"
+);
+var encrypt_list_param = new Array(
+"<span id=\"t_auto\">AUTO</span>",
+"<span id=\"t_none\">NONE</span>",
+	"DES",
+	"3DES",
+	"AES128",
+	"AES192",
+	"AES256"
+);
+
+//--></script>
+</head>
+
+<BODY onload="LoadHelp('SaListHelpRpm.htm');setTagStr(document,'ntw_salist'); resize(this);" onResize="resize(this);">
+<center><form action="IPsecRpm.htm" enctype="multipart/form-data" method="get" onSubmit="return doSubmit();">
+
+<table id="autoWidth" border="0" cellspacing="0" cellpadding="0">
+<TR><TD class=h1 colspan=2 id ="t_ipsec_setting">List of Security Alliance</TD></TR>
+
+<TR><TD class=blue colspan=2></TD></TR>
+<TR><TD></TD></TR>
+<TR>
+	<TD>
+		<table id="autoWidth" align="center">
+		<!--<table id="autoWidth" border="1" align="center" cellpadding="0" cellspacing="0" class="space">-->
+			<tr align="center">
+				<td align="center"><B id="t_index">Index</B></td>
+				<td align="center"><B id="t_name">Name</B></td>
+				<td align="center"><B id="t_spi">SPI</B></td>
+				<td align="center"><B id="t_tunnel_init">Tunnel Initiator</B></td>
+				<td align="center"><B id="t_tunnel_receiver">Tunnel Receiver</B></td>
+				<td align="center"><B id="t_sec_protocol">Security Protocol</B></td>
+				<td align="center"><B id="t_ah_auth">AH Auth</B></td>
+				<td align="center"><B id="t_esp_auth">ESP Auth</B></td>
+				<td align="center"><B id="t_esp_encr">ESP Encr</B></td>
+			</tr>
+			<script language="JavaScript">
+			if (sa_page_param[2] > 0)
+			{
+				var row = 0;
+				var modeString;
+				var index = 0;
+				var idStart = 0;
+				for(var i = 0; i < sa_page_param[2]; i++)
+				{
+					idStart++;
+					
+					document.write('<tr id="tr'+idStart+'"><td align="center">' + idStart + '<\/td>');
+					var showVal = sa_list_data_param[row];
+					if (getValLen(showVal) > 24)
+					{
+						showVal = showVal.substr(0,20) + "...";
+					}
+					document.write('<td align="center">' + showVal + '<\/td>');
+					document.write('<td align="center">' + sa_list_data_param[row+1] + '<\/td>');
+					document.write('<td align="center">' + sa_list_data_param[row+2] + '<\/td>');
+					document.write('<td align="center">' + sa_list_data_param[row+3] + '<\/td>');
+					
+					index = sa_list_data_param[row+4];
+					document.write('<td align="center">' + proto_list_param[index] + '<\/td>');
+					
+					//AH
+					if (0 == sa_list_data_param[row+4])
+					{
+						index = sa_list_data_param[row+5];
+						document.write('<td align="center">' + auth_list_param[index] + '<\/td>');
+						document.write('<td align="center">' + '--' + '<\/td>');
+						document.write('<td align="center">' + '--' + '<\/td>');
+					}
+					else
+					{
+						document.write('<td align="center">' + '--' + '<\/td>');
+					
+						index = sa_list_data_param[row+6];
+						document.write('<td align="center">' + auth_list_param[index] + '<\/td>');
+						index = sa_list_data_param[row+7];
+						document.write('<td align="center">' + encrypt_list_param[index] + '<\/td>');				
+					}
+
+					row += sa_page_param[3];
+				}
+			}
+			else
+			{
+				document.write('<tr><td align="center" colspan=9 id="t_list_empty">Now the list is empty.<\/td>');
+			}
+			</script>
+		</TABLE>
+	</TD>	
+</TR>
+
+<TR><TD class=blue colspan=2></TD></TR>
+
+<tr>
+	<TD class =" mbtn">
+		<input name="Refresh"  class="buttonBig" type="button" value="Refresh" onClick="return doRefresh();">
+	</td>
+</tr>
+</table></form></center>
+<script language="JavaScript">
+
+</script>
+</body><head><meta http-equiv="pragma" content="no-cache"></head></html>

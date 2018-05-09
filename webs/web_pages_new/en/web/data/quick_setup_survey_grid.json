@@ -1,0 +1,13 @@
+{
+	"timeout": false,
+	"success": true,
+	"data":
+	[
+		{"bssid":"30-B5-C2-52-1B-9E",  "ssid":"Totalplay", "signal":"55dB", "channel":"2", "security":"2"},
+		{"bssid":"30-B5-C2-52-1B-9F",  "ssid":"Totalplay2", "signal":"55dB", "channel":"2", "security":"2"},
+		{"bssid":"30-B5-C2-52-1B-A0",  "ssid":"Totalplay3", "signal":"55dB", "channel":"2", "security":"0"},
+		{"bssid":"30-B5-C2-52-1B-A1",  "ssid":"Totalplay4", "signal":"55dB", "channel":"2", "security":"0"},
+		{"bssid":"30-B5-C2-52-1B-A2",  "ssid":"Totalplay5", "signal":"55dB", "channel":"2", "security":"2"},
+		{"bssid":"30-B5-C2-52-1B-A3",  "ssid":"Totalplay6", "signal":"55dB", "channel":"2", "security":"1"}
+	]	
+}

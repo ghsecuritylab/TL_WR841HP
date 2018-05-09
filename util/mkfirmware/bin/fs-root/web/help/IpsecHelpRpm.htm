@@ -1,0 +1,29 @@
+
+<HTML><HEAD><TITLE></TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+</head>
+
+<H1>IPsec Policy Settings Help</H1>
+<P>You could simply setup IPsec Policy referring to the following instructions.
+
+<ul>
+<lI><B>Policy Name</B> - Enter the name for the IPsec Policy. </lI>
+<lI><B>Local Subnet</B> - Enter the local (LAN) subnet and mask.(ex. 192.168.0.0/24)</lI>
+<lI><B>Peer Subnet</B> - Enter the Peer subnet and mask.</LI>
+<lI><B>Peer Gateway</B> - Enter the Peer gateway or domain.</lI>
+<lI><B>Negotiation Mode</B> - Here you could find two options, IKE Negotiation Mode and Manually Mode.You are recommended to select the default mode-- IKE Negotiation Mode, and all the parameters could be negotiated automatically according to IKE.If Manually Mode is selected, you should manually setup the Encryption and SPI parameters according to the instructions.</lI>
+<lI><B>Security Protocol</B> - Select the Security Protocol from the drop-down menus. Here you could find AH (Authentication Header) and ESP (Encapsulation Security Payload) protocols.</lI>
+<lI><B>Authentication Algorithm</B> - Select the Authentication Algorithm for IPsec connection. You could also keep the default value "Auto".</lI>
+<lI><B>Encryption Algorithm</B> - Select the Encryption Algorithm for IPsec connection. You could also keep the default value "Auto".</lI>
+<lI><B>In SPI</B> - It is for direction in SPI parameter setting in manual mode, and the parameter must be same as peer <B>Out SPI.</B> </lI>
+<lI><B>In Authentication Key</B> - It is for direction in authentication key setting in manual mode, and the key must be same as peer <B>Out Authentication Key.</B></lI>
+<lI><B>Out SPI</B> - It is for direction out SPI parameter setting in manual mode, and the parameter must be same as peer <B>In SPI.</B> </lI>
+<lI><B>Out Authentication Key</B> - It is for direction out authentication key setting in manual mode, and the key must be same as peer <B>In Authentication Key.</B></lI>
+<lI><B>PFS Group</B> - Select the PFS property from the drop-down menus that should be the same for the local and remote endpoints. 
+If you select "None" for local endpoint, any value is accepted for remote endpoint.</lI>
+<lI><B>Lifetime</B> - Manually enter the number of seconds for the IPsec Lifetime. The default value is 28800.</lI>
+<lI><B>Enable</B> - Enable or Disable current policy.</lI>
+</ul>
+
+</HTML>
+

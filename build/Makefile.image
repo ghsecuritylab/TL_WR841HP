@@ -1,0 +1,5 @@
+wr841hpv3_en: httpd_build
+	make apxxfus_fs_prep enet=ag7240 lang=en oem_dir=WR841HP3.0_UN
+	make mk_squashfs_build fs_size=0x3C0000
+	make image_build prefix=wr841hpv3_en
+

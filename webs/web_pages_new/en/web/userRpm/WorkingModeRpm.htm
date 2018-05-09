@@ -1,0 +1,293 @@
+
+<link rel="stylesheet" href="../dynaform/widget.css" type="text/css" />
+<script type="text/javascript" src="../js/su/su.js"></script>
+<script type="text/javascript" src="../js/su/widget/widget.js"></script>
+
+
+<script type="text/javascript" src="../js/su/widget/form/form.js"></script>
+<script type="text/javascript" src="../js/su/widget/form/combobox.js"></script>
+<script type="text/javascript" src="../js/su/widget/form/radio.js"></script>
+
+<link rel="stylesheet" href="../dynaform/basic_new_ui.css"></link>
+<link rel="stylesheet" href="../dynaform/WorkingMode.css"></link>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<SCRIPT type="text/javascript">
+<!--
+function doSubmit()
+{
+	//var i;
+	//var workMode = document.forms[0].workMode;
+	var workMode = $("input#workMode").radio("getValue")
+	if ( workMode != workModePara[selectedModeIdx])
+	{
+		if(!confirm(js_modify_work_mode="Modification of Working mode will result in the rebooting of this Device, OK?"))
+		{
+				return false;
+		}
+		else
+		{
+				//location.href ="../userRpm/restart.htm";
+				//return false;
+				return true;
+				
+		}
+	}
+	//return true;
+}
+
+var modeOption = new Array();
+function  modeItemCreate(url, value)
+{
+	this.boxlabel = url;
+	this.inputvalue = value;
+}
+function modeOptionAllCreate()
+{	
+	var i=0;
+	//var url = "<b>Standard Wireless Router</b>";
+	var url = "<b>Router</b>"
+	modeOption[i++] = new modeItemCreate(url, 1);
+	url = "<b>Range Extender</b>";
+	modeOption[i++] = new modeItemCreate(url, 6); 
+	url = "<b>Access Point</b>";
+	modeOption[i++] = new modeItemCreate(url, 7);
+	/*
+	url = "<b>Repeater</b>";
+	modeOption[i++] = new modeItemCreate(url, 6); 
+	*/
+	url = "<b>Client</b>";
+	modeOption[i++] = new modeItemCreate(url, 3);
+	url = "<b>WISP Client Router</b>";
+	modeOption[i++] = new modeItemCreate(url, 4);
+}
+
+function hideAllModeItem()
+{	
+	$("input#workMode").radio("hideItem", "1");
+	$("input#workMode").radio("hideItem", "7");
+	$("input#workMode").radio("hideItem", "3");
+	$("input#workMode").radio("hideItem", "4");
+	$("input#workMode").radio("hideItem", "6");
+
+}
+function showWorkMode(curWorkingMode)
+{
+	
+	switch (curWorkingMode)
+	{
+	
+	case 3: 
+		$("input#workMode").radio("showItem", "3");
+		$("input#workMode").radio("enableItem", "3");
+		break;
+	case 4: 
+		$("input#workMode").radio("showItem", "4");
+		$("input#workMode").radio("enableItem", "4");
+		break;
+	case 6: 
+		//$("input#workMode").radio("showItem", "6");
+		//$("input#workMode").radio("enableItem", "6");
+		//break;
+	case 1:
+	case 7: 
+	default:
+		$("input#workMode").radio("showItem", "1");
+		$("input#workMode").radio("showItem", "7");
+		$("input#workMode").radio("enableItem", "1");
+		$("input#workMode").radio("enableItem", "7");
+		$("input#workMode").radio("showItem", "6");
+		$("input#workMode").radio("enableItem", "6");
+		break; 
+	}
+	
+}
+
+function showRouter()
+{	
+	$('TD#sysMode-router').removeClass("hidden");
+	$('TD#sysMode-router').addClass("hidden");
+	
+	$('TD#sysMode-extender').removeClass("loc3");
+	$('TD#sysMode-extender').removeClass("loc2");
+	$('TD#sysMode-extender').addClass("loc2");
+	document.getElementById("extender_label").textContent="Router";
+	
+	$('span#map_link3').removeClass("hidden");
+	$('span#map_link3').addClass("hidden");
+	
+	$('TD#sysMode-client').removeClass("loc4");
+	$('TD#sysMode-client').removeClass("loc3");
+	$('TD#sysMode-client').addClass("loc3");
+
+}
+
+
+function showExtender()
+{
+	$('TD#sysMode-router').removeClass("hidden");
+	
+	$('TD#sysMode-extender').removeClass("loc2");
+    $('TD#sysMode-extender').removeClass("loc3");
+	$('TD#sysMode-extender').addClass("loc3");
+	
+	document.getElementById("extender_label").textContent="Range Extender";
+	
+	$('span#map_link3').removeClass("hidden");
+	
+	$('TD#sysMode-client').removeClass("loc4");
+	$('TD#sysMode-client').removeClass("loc3");
+	$('TD#sysMode-client').addClass("loc4");
+
+}
+
+function showAccessPoint()
+{
+	$('TD#sysMode-router').removeClass("hidden");
+	$('TD#sysMode-router').addClass("hidden");
+	
+	$('TD#sysMode-extender').removeClass("loc3");
+	$('TD#sysMode-extender').removeClass("loc2");
+	$('TD#sysMode-extender').addClass("loc2");
+	
+	document.getElementById("extender_label").textContent="Access Point";
+	
+	$('span#map_link3').removeClass("hidden");
+	$('span#map_link3').addClass("hidden");
+	
+	$('TD#sysMode-client').removeClass("loc4");
+	$('TD#sysMode-client').removeClass("loc3");
+	$('TD#sysMode-client').addClass("loc3");
+
+}
+
+
+function showMap(mode)
+{
+	 switch(mode)
+	  {
+		case 1:
+		case "1":
+				showRouter();
+				break;
+		case 7:
+		case "7":
+				showAccessPoint();
+				break;
+		case 6:
+		case "6":
+				showExtender();
+				break;
+		default:
+			alert("Error No this mode link map!!!!");
+			break;
+	  }
+	
+}
+
+function RadiochangeHandler()
+{
+	var Mode = $("input#workMode").radio("getValue");
+	showMap(Mode);
+}
+
+//-->
+</SCRIPT>
+</HEAD>
+<BODY onLoad="LoadHelp('WorkingModeHelpRpm.htm');">
+<CENTER>
+  <FORM action="WorkingModeRpm.htm" method="get" enctype="multipart/form-data"  onSubmit="return doSubmit();" >
+    <TABLE id=autoWidth border="0">
+      <TBODY>
+		 <TR>
+			<TD colspan=3 > </TD>
+	     </TR> 
+		 
+        <TR>
+          <TD class=h2 colspan=3 id="t_title">Working Mode</TD>
+        </TR>
+ 
+		 <TR>
+			<TD colspan=3 > </TD>
+	     </TR>
+		 
+		<TR>
+			<TD></TD>
+			<TD id="td_workMode" class="td_workMode_css"><input id="workMode" name="workMode"></TD>
+			<TD></TD>
+		</TR>     
+  
+        <TR>
+          
+		  <TD id="sysMode-Internet" class="sysMode loc1">	
+			<p id="Internet_label" class="text loc">Internet</p>
+		  </TD>
+		  
+		  <TD>
+		  <span id="map_link1" class="map_link_right"> 
+		  </span> 
+		  </TD>
+		
+		   <TD id="sysMode-router" class="sysMode loc2">
+				<p id="router_label" class="text loc">Router</p>
+		  </TD>
+		  
+		  <TD>
+		  <span id="map_link2" class="map_link_right"> 
+		  </span> 
+		  </TD>
+		  
+		   <TD id="sysMode-extender" class="sysMode loc3">
+				<p id="extender_label" class="text loc">Router Extender</p>
+		  </TD>
+		  <TD>
+		  <span id="map_link3" class="map_link_right"> 
+		  </span> 
+		  </TD>
+		   <TD id="sysMode-client" class="sysMode loc4">	
+				<p id="Internet_label" class="text loc">Client</p>
+		  </TD>  
+		  
+		</TR> 
+		
+		 <TR>
+			<TD colspan=3 > </TD>
+	     </TR> 
+		 
+		<TR>
+			<TD id="td_modeSave" class="td_modeSave_css">
+			<INPUT class=buttonBig id=Submit type="submit" value="Save" name="Save"> </INPUT>
+			</TD>
+		</TR>
+	  </TBODY>
+    </TABLE>
+  </FORM>
+</CENTER>
+</BODY>
+<HEAD>
+<META http-equiv="pragma" content="no-cache">
+</HEAD>
+</HTML>
+<SCRIPT type="text/javascript">
+<!--//
+var selectedModeIdx = 0;
+var standardModeIdx = 1;
+var general3gModeIdx = 2;
+var apcModeIdx = 3;
+var apModeIdx = 4;
+var pure3gModeIdx = 5;
+
+modeOptionAllCreate();
+$("input#workMode").radio({
+	columns: 7,
+	items: modeOption
+}).on("ev_click", RadiochangeHandler);
+
+$("input#workMode").radio("disableAll");
+hideAllModeItem();
+showWorkMode(workModePara[selectedModeIdx])
+$("input#workMode").radio("setValue", workModePara[selectedModeIdx]);
+
+showMap(workModePara[selectedModeIdx])
+
+//-->
+</SCRIPT>

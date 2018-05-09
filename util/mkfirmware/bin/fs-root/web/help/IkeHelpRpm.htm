@@ -1,0 +1,29 @@
+
+<HTML><HEAD><TITLE></TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+</head>
+
+<H1>IKE Policy Settings Help</H1>
+
+<P>IKE (Internet Key Exchange) Proposal is used for key negotiation before VPN tunnels based IPSec are established. Here you could easily setup high-security connections with IKE but make sure that the IKE settings should be the same for the local and peer endpoints.
+
+
+<ul>
+<lI><B>Security Policy</B> - Specify a unique name to the IKE policy for identification and management purposes.</lI>
+<lI><B>Exchange Mode</B> - Select the IKE Exchange Mode in phase 1, and ensure the remote VPN peer uses the same mode.</lI>
+<ul>
+<li><B>Main mode</B> - Provides identity protection and exchanges more information, which applies to the scenarios with higher requirement for identity protection. </li>
+<li><B>Aggressive mode</B> - Establishes a faster connection but with lower security, which applies to scenarios with lower requirement for identity protection.</li>
+</ul>
+<lI><B>Local ID Type/Peer ID Type</B> - Select the type of Local ID/Peer ID for negotiation. </lI>
+<lI><B>Local ID/Peer ID</B> - If "IP Address" is selected, enter the IP Address of gateway for negotiation; If "Name" is selected, enter the name for negotiation.</LI>
+<lI><B>Authentication Algorithm</B> - Select the authentication algorithm for IKE Negotiation. </lI>
+<lI><B>Encryption Algorithm</B> - Select the encryption algorithm for IKE Negotiation. </lI>
+<lI><B>DH Group</B> - Select the parameter of Diffie-Hellman algorithm for IKE Negotiation. </lI>
+<lI><B>Pre-shared Key</B> - Manually enter ASCII characters for the Pre-shared key that should be the same for the local and peer endpoints. </lI>
+<lI><B>Lifetime</B> - Manually enter the number of seconds for the IKE Lifetime (The period of time to pass before establishing a new IKE security association (SA) with the peer endpoint. The default value is 28800.</lI>
+<lI><B>DPD</B> - If it is enabled, a Dead Peer Detection (DPD) packet is sent from the VPN Concentrator to the VPN Client to ensure its peer is still there.</lI>
+<lI><B>DPD Interval</B> - Manually enter the number of seconds for the DPD Interval. The default value is 10.</lI>
+</ul>
+</HTML>
+

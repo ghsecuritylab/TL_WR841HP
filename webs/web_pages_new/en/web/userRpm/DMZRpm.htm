@@ -1,0 +1,106 @@
+
+<link rel="stylesheet" href="../dynaform/widget.css"></link>
+<!--[if lte IE 8]>
+<link href="../dynaform/ie8.css", rel="stylesheet" type="text/css">
+ <![endif]-->
+<script type="text/javascript" src="../js/su/su.js"></script>
+<script type="text/javascript" src="../js/su/widget/widget.js"></script>
+<script type="text/javascript" src="../js/su/widget/form/radio.js"></script>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<SCRIPT type="text/javascript">
+<!--//
+function doSubmit()
+{
+    var hostIP = document.forms[0].ipAddr.value;
+	
+    if(!ipverify(hostIP))
+    {
+        alert(js_bad_dmz_ip="The IP address is invalid, please input again!");
+        return false;
+    }
+	
+	if (hostIP == DMZInf[2])
+	{
+		alert(js_same_ip="The IP address cannot be the same with LAN IP address, please input again!");
+        return false;
+	}
+	
+	var ip_arr = DMZInf[2].split(".");
+	var mask_arr = DMZInf[3].split(".");
+	var host_arr = hostIP.split(".");
+	var ip_len = ip_arr.length;
+	var mask_len = mask_arr.length;
+	var host_len = host_arr.length;
+	
+	if((host_arr[mask_len-1] == 0x0) ||
+		(host_arr[mask_len-1]== 255))
+	{
+		alert(js_invalid_dmz_ip="The IP address is invalid, please input again!");
+		return false;
+	}
+	for(var i = 0; i < mask_len; i++)
+	{
+		if ((ip_arr[i] & mask_arr[i]) != (host_arr[i] & mask_arr[i]))
+		{
+			alert(js_diff_dmz_ip="The IP address and LAN IP address should be in the same subnet, please input again!");
+			return false;
+		}
+	}
+
+	return true;
+}
+//-->
+</SCRIPT>
+</HEAD>
+<BODY onLoad="setTagStr(document,'ntw_dmz');LoadHelp('DMZHelpRpm.htm'); resize(this);" onResize="resize(this);">
+<CENTER>
+  <FORM name="DMZ" action="DMZRpm.htm" enctype="multipart/form-data" method="get" onSubmit="return doSubmit();">
+    <TABLE id="autoWidth">
+      <TR>
+        <TD class="h1" colspan="2" id="t_title">DMZ</TD>
+      </TR>
+	  <TR>
+        <TD class="blue" colspan="2"></TD>
+      </TR>
+      <TR>
+        <TD class="Item" id="t_status">Current DMZ Status:</TD>
+        <TD>
+		  <input id="enable" name="enable" />
+		 </TD>
+      </TR>
+      <TR>
+        <TD class="Item" id="t_dmz_ip">DMZ Host IP Address:</TD>
+        <TD>
+			<INPUT class="text" type="text" value="" name="ipAddr" size="15" maxlength="15">
+			<INPUT class="text" value="255.255.255.0" name="netmask" size="15" maxlength="15" style ="display:none">
+		</TD>
+      </TR>
+      <TR>
+        <TD class="blue" colspan="2"></TD>
+      </TR>
+      <TR>
+        <TD class = "mbtn" colspan="2"><INPUT name="Save" type="submit" class="buttonBig" value="Save"></TD>
+      </TR>
+    </TABLE>
+  </FORM>
+</CENTER>
+</BODY>
+<HEAD>
+<META http-equiv="pragma" content="no-cache">
+</HEAD>
+</HTML>
+<script type="text/javascript">
+	$("input#enable").radio({
+		columns: 2,
+		items: [
+			{boxlabel: (js_enable = "Enable"), inputvalue: "1"},
+			{boxlabel: (js_disable = "Disable"), inputvalue: "0"}
+		]
+	});
+</script>
+<SCRIPT type="text/javascript">
+//document.forms[0].enable[0].checked = DMZInf[0];
+//document.forms[0].enable[1].checked = !(DMZInf[0]);
+$("input#enable").radio("setValue", DMZInf[0]);
+document.forms[0].ipAddr.value = DMZInf[1];
+</SCRIPT>

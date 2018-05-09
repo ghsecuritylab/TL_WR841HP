@@ -1,0 +1,12 @@
+{
+	"success":	true,
+	"timeout":	false,
+	"data":	{
+		"internet_conn_status":	2,
+		"wireless_clients_count":	17,
+		"wire_clients_count":	21,
+		"operation_mode": 3,
+		"working_mode": 1
+	}
+}
+

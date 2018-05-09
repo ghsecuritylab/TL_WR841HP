@@ -1,0 +1,254 @@
+
+<SCRIPT language="javascript" src="../js/su/su.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="javascript" src="../js/su/widget/widget.js" type="text/javascript"></SCRIPT>
+
+<SCRIPT language="javascript" src="../js/su/widget/form/button.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="javascript" src="../js/su/widget/form/checkbox.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="javascript" src="../js/su/widget/form/buttongroup.js" type="text/javascript"></SCRIPT>
+<script type="text/javascript" src="../js/su/widget/form/checkbox.js"></script>
+<script type="text/javascript" src="../js/su/widget/form/radio.js"></script>
+<script type="text/javascript" src="../js/su/widget/form/combobox.js"></script>
+
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+
+<!-- 
+<link rel="stylesheet" href="../dynaform/reset.css"></link>
+
+-->
+<link rel="stylesheet" href="../dynaform/widget.css"></link>
+<link rel="stylesheet" href="../dynaform/style.css"></link>
+
+<script id="lan-js" type="text/javascript" src="../locale/en_US/lan.js"></script>
+<script type="text/javascript">
+function doRefresh()
+{
+	location.href="LedControl.htm"; return true;
+}
+function doSubmit()
+{
+    if ((document.forms[0].start_hour.value==document.forms[0].end_hour.value) && (document.forms[0].start_min.value==document.forms[0].end_min.value))
+	{
+		alert(js_bad_time_match="The start time should differ from the end time. Please input another time!");
+		//doRefresh();
+        return false;
+	}
+    return true;
+}
+
+function change_ledtime_status()
+{
+	var Status = $("input#night_mode").checkbox("getChecked");
+	if (Status == true)
+	{
+		$("input#start_hour").combobox("enable");
+		$("input#start_min").combobox("enable");
+		$("input#end_hour").combobox("enable");
+		$("input#end_min").combobox("enable");
+	
+	}
+	else if (Status == false)
+	{
+		$("input#start_hour").combobox("disable");
+		$("input#start_min").combobox("disable");
+		$("input#end_hour").combobox("disable");
+		$("input#end_min").combobox("disable");
+	}
+}
+
+var  minOfhour = new Array();
+function minItemCreate(value, name)
+{
+	this.value = value;
+	this.name = name;
+}
+	
+function minOptionCreate()
+{
+	var i = 0;
+	
+	minOfhour[i] = new minItemCreate(i, "00");
+	i++;
+	minOfhour[i] = new minItemCreate(i, "01");
+	i++;
+	minOfhour[i] = new minItemCreate(i, "02");
+	i++;
+	minOfhour[i] = new minItemCreate(i, "03");
+	i++;
+	minOfhour[i] = new minItemCreate(i, "04");
+	i++;
+	minOfhour[i] = new minItemCreate(i, "05");
+	i++;
+	minOfhour[i] = new minItemCreate(i, "06");
+	i++;
+	minOfhour[i] = new minItemCreate(i, "07");
+	i++;
+	minOfhour[i] = new minItemCreate(i, "08");
+	i++;
+	minOfhour[i] = new minItemCreate(i, "09");
+	i++;
+	while (i < 60)
+	{
+		minOfhour[i] = new minItemCreate(i, i);
+        i++;
+	}
+	
+}
+
+</script>
+</HEAD>
+
+<BODY onLoad="LoadHelp('LedControlHelpRpm.htm');setTagStr(document,'led_control'); resize(this);" onResize="resize(this);">
+<div>
+	<form action="LedControl.htm" method="get" enctype="multipart/form-data" onSubmit="return doSubmit();">
+		<TABLE>
+		<TBODY>
+			<TR>
+				<TD class="h1" colspan="4" id="t_title">LED Control</TD>
+				
+			</TR>
+			<TR>
+				<TD class="blue" colspan="4" ></TD>
+			</TR>
+			<TR>
+				<TD><input id="night_mode"  colspan="4"  name="night_mode"></TD>
+			</TR>
+			
+			<TR>
+				<TD class = "h3" id="t_title_ledofftime">LED Off Time:</TD>
+				<TD>
+				<input id="start_hour" name="start_hour"></input>
+				<span>:</span>
+				<input id="start_min" name="start_min"></input>
+				<span> - </span>
+				<input id="end_hour" name="end_hour"></input>
+				<span>:</span>
+				<input id="end_min" name="end_min"></input>
+				</TD>
+			</TR>
+			<TR>
+				<TD></TD>
+			</TR>
+			<TR>
+				<TD></TD>
+				<TD></TD>
+				<TD><input class="buttonBig" id="Save" type="submit" value="Save" name="Save"></TD>
+			</TR>
+		</TBODY>
+		
+		</TABLE>
+		 
+	</form>
+</div>
+</BODY>
+
+</HTML>
+
+<script type="text/javascript">
+
+
+$("input#night_mode").checkbox({
+    labelCls: "l",
+	inputCls: "s",
+    items: [{boxlabel:"Night Mode", inputvalue: "1"}]
+}).on("ev_change", change_ledtime_status);
+
+
+
+var  hourOftime=[
+			{"value": "0",    "name": "00"},   
+			{"value": "1",    "name": "01"},
+			{"value": "2",    "name": "02"},
+			{"value": "3",    "name": "03"},
+			{"value": "4",    "name": "04"},
+			{"value": "5",    "name": "05"},
+			{"value": "6",    "name": "06"},
+			{"value": "7",    "name": "07"},
+			{"value": "8",    "name": "08"},
+			{"value": "9",    "name": "09"},
+			{"value": "10",    "name": "10"},
+			{"value": "11",    "name": "11"},
+			{"value": "12",    "name": "12"},
+			{"value": "13",    "name": "13"},   
+			{"value": "14",    "name": "14"},
+			{"value": "15",    "name": "15"},
+			{"value": "16",    "name": "16"},
+			{"value": "17",    "name": "17"},
+			{"value": "18",    "name": "18"},
+			{"value": "19",    "name": "19"},
+			{"value": "20",    "name": "20"},
+			{"value": "21",    "name": "21"},
+			{"value": "22",    "name": "22"},
+			{"value": "23",    "name": "23"}		
+    ];
+
+
+
+minOptionCreate();
+	
+$("input#start_hour").combobox({
+    fieldLabel: null,
+    labelCls: "s",
+    inputCls: "s",
+	cls: "inline",
+    items: hourOftime
+});
+
+$("input#start_min").combobox({
+    fieldLabel: null,
+    labelCls: "s",
+    inputCls: "s",
+	cls: "inline",
+    items: minOfhour
+});
+
+
+$("input#end_hour").combobox({
+    fieldLabel: null,
+    labelCls: "s",
+    inputCls: "s",
+	cls: "inline",
+    items: hourOftime
+});
+
+$("input#end_min").combobox({
+    fieldLabel: null,
+    labelCls: "s",
+    inputCls: "s",
+	cls: "inline",
+    items: minOfhour
+});
+
+
+if (ledctlPara[0] == 1)
+{
+	$("input#night_mode").checkbox("setChecked",1);
+}
+
+$("input#start_hour").combobox("setValue", ledctlPara[1]);
+$("input#start_min").combobox("setValue", ledctlPara[2]);
+
+$("input#end_hour").combobox("setValue", ledctlPara[3]);
+$("input#end_min").combobox("setValue", ledctlPara[4]);
+
+if (ledctlPara[0] == 1)
+{
+		$("input#start_hour").combobox("enable");
+		$("input#start_min").combobox("enable");
+		$("input#end_hour").combobox("enable");
+		$("input#end_min").combobox("enable");
+}
+else
+{
+		$("input#start_hour").combobox("disable");
+		$("input#start_min").combobox("disable");
+		$("input#end_hour").combobox("disable");
+		$("input#end_min").combobox("disable");
+}
+
+
+
+
+</script>
+
+
+
