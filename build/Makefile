@@ -1974,7 +1974,7 @@ endif
 fill_model_conf:
 	@echo "" >> $(PRODUCT_CONFIG_DIR)/model_tmp.conf
 	@cp -f $(PRODUCT_CONFIG_DIR)/../version_common.conf $(PRODUCT_CONFIG_DIR)/../version.conf
-	@cp -f $(PRODUCT_CONFIG_DIR)/version.conf	$(PRODUCT_CONFIG_DIR)/../version.conf
+	@cp -f $(PRODUCT_CONFIG_DIR)/../version.conf	$(PRODUCT_CONFIG_DIR)/version.conf
 	@cat $(PRODUCT_CONFIG_DIR)/../version.conf >> $(PRODUCT_CONFIG_DIR)/model_tmp.conf
 	@echo "" >> $(PRODUCT_CONFIG_DIR)/model_tmp.conf
 	@cat $(TOPDIR)/web_server/sys/buildtime.h >> $(PRODUCT_CONFIG_DIR)/model_tmp.conf
