@@ -141,7 +141,7 @@ endif
 # added by yangxv for web log, 2008.10.31
 ifdef TP_WEB_LOG
 CFLAGS  += -I ../../../web_server/msglogd/
-LDFLAGS += -L ../../../web_server/msglogd/ -lmsglog
+LDFLAGS += -L ../../../web_server/msglogd/ -lmsglog -lcrypt
 endif
 
 ifdef CHAPMS

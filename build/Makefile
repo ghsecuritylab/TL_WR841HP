@@ -1323,6 +1323,7 @@ ifeq ($(GPL_BUILD), y)
 endif
 	cd $(TOPDIR)/apps/iptables-1.4.5 && \
 	if test -e Makefile ; then make distclean ; fi && \
+	./autogen.sh && \
 	./configure --prefix=$(INSTALL_ROOT) \
 	--build=i386 --host=mips-linux  \
 	--with-ksource=$(KERNELPATH) \
