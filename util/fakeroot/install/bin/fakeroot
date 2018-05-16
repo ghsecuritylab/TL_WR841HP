@@ -30,12 +30,12 @@ fatal ()
 }
 
 # strip /bin/fakeroot to find install prefix
-FAKEROOT_PREFIX=/home/skyhawk/project/code/model_qca_svn/build/../util/fakeroot/install
-FAKEROOT_BINDIR=/home/skyhawk/project/code/model_qca_svn/build/../util/fakeroot/install/bin
+FAKEROOT_PREFIX=../util/fakeroot/install
+FAKEROOT_BINDIR=../util/fakeroot/install/bin
 
 USEABSLIBPATH=0
 LIB=libfakeroot.so
-PATHS=/home/skyhawk/project/code/model_qca_svn/build/../util/fakeroot/install/lib:${FAKEROOT_PREFIX}/lib64/libfakeroot:${FAKEROOT_PREFIX}/lib32/libfakeroot
+PATHS=../util/fakeroot/install/lib:${FAKEROOT_PREFIX}/lib
 FAKED=${FAKEROOT_BINDIR}/faked
 
 FAKED_MODE="unknown-is-root"
